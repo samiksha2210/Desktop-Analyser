@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="activity_tracker.db" readonly="0" foreign_keys="1" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="1000" synchronous="2"/><attached/><window><main_tabs open="structure browser pragmas query" current="0"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="100"/><column_width id="3" width="1615"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><table title="Activity_Log" custom_title="0" dock_id="1" table="4,12:mainActivity_Log"/><dock_state state="000000ff00000000fd00000001000000020000000000000000fc0100000001fb000000160064006f0063006b00420072006f00770073006500310100000000ffffffff0000011300ffffff000000000000000000000004000000040000000800000008fc00000000"/><default_encoding codec=""/><browse_table_settings/></tab_browse><tab_sql><sql name="SQL 1*">CREATE TABLE Categories (
+    category_id INTEGER PRIMARY KEY,
+    category_name TEXT NOT NULL
+);
+
+CREATE TABLE Applications (
+    app_id INTEGER PRIMARY KEY,
+    app_name TEXT NOT NULL,
+    category_id INTEGER,
+    FOREIGN KEY(category_id) REFERENCES Categories(category_id)
+);
+
+CREATE TABLE Websites (
+    site_id INTEGER PRIMARY KEY,
+    site_url TEXT NOT NULL,
+    category_id INTEGER,
+    FOREIGN KEY(category_id) REFERENCES Categories(category_id)
+);
+
+CREATE TABLE Activity_Log (
+    activity_id INTEGER PRIMARY KEY,
+    app_id INTEGER,
+    site_id INTEGER,
+    start_time DATETIME,
+    end_time DATETIME,
+    duration INTEGER,
+    FOREIGN KEY(app_id) REFERENCES Applications(app_id),
+    FOREIGN KEY(site_id) REFERENCES Websites(site_id)
+);
+
+CREATE TABLE Insights (
+    insight_id INTEGER PRIMARY KEY,
+    date DATE,
+    total_time INTEGER,
+    productive_time INTEGER,
+    score INTEGER,
+    notes TEXT
+);
+</sql><current_tab id="0"/></tab_sql></sqlb_project>
